@@ -55,7 +55,8 @@ namespace :nginx do
           config = ERB.new(File.read(config_file)).result(binding)
           upload! StringIO.new(config), '/tmp/nginx.conf'
 
-          execute :sudo, :mv, '/tmp/nginx.conf', fetch(:application)
+          execute :sudo, :cp, '/tmp/nginx.conf', fetch(:application)
+	  execute :rm, '/tmp/nginx.conf'
         end
       end
     end
